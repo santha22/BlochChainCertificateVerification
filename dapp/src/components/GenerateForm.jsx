@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import CertificateGenerator from "./CertificateGenerator";
 import { useAuth } from "../store/auth";
 import Certificate from "./Certificate";
@@ -21,28 +20,7 @@ function GenerateForm(props) {
   });
 
   const [submitted, setSubmitted] = useState(false);
-  // const navigate = useNavigate();
-
-  // const handleChange = (e) => {
-  //   const name = e.target.name;
-  //   const value = e.target.value;
-  
-  //   if (name === 'assignDate') {
-  //     // const formattedDate = formatDate(value);
-  //     setCertificate((prevCertificate) => ({
-  //       ...prevCertificate,
-  //       // [name]: formattedDate,
-  //       [name]: value,
-  //     }));
-  //   } else {
-  //     setCertificate({
-  //       ...certificate,
-  //       [name]: value,
-  //     });
-  //   }
-  // };
-
-  // const { storetokenInLs } = useAuth();
+ 
   const handleChange = (e) => {
       const name = e.target.name;
       const value = e.target.value;
@@ -54,19 +32,10 @@ function GenerateForm(props) {
       
     };
 
-  // const formatDate = (inputDate) => {
-  //   const parts = inputDate.split('-');
-  //   if (parts.length === 3) {
-  //     const [day, month, year] = parts;
-  //     return `${year}-${month}-${day}`;
-  //   }
-  //   // Return the original input if the format is not as expected
-  //   return inputDate;
-  // };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(certificate);
     try {
       const response = await fetch(URL, {
         method: 'POST',
