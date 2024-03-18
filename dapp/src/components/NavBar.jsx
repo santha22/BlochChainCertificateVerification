@@ -15,7 +15,7 @@ const NavBar = () => {
     return (
 
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
             <Link to="/" style={{ textDecoration: 'none' }}>
               <FontAwesomeIcon icon={faHouse} size="lg" style={{ cursor: "pointer" }} />
@@ -28,7 +28,7 @@ const NavBar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <NavLink className="nav-link active" aria-current="page" to="/">E-Certify</NavLink>
+                  <NavLink className="nav-link active text-light" aria-current="page" to="/">E-Certify</NavLink>
                 </li>
 
                 {/* <form className="d-flex">
@@ -42,13 +42,13 @@ const NavBar = () => {
               {isLoggedIn ? (
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link to="/logout" className="nav-link" style={{ textDecoration: 'none' }}>
+                    <Link to="/logout" className="nav-link text-light" style={{ textDecoration: 'none' }}>
                       Logout
                     </Link>
                   </li> 
 
                   <li className="nav-item">
-                    <Link to="/certificate" className="nav-link" style={{ textDecoration: 'none' }}>
+                    <Link to="/certificate" className="nav-link text-light" style={{ textDecoration: 'none' }}>
                       Generate
                     </Link>
                   </li>
@@ -58,13 +58,13 @@ const NavBar = () => {
               ) : (
                 <ul className="navbar-nav">
                   <li className="nav-item" >
-                    <Link to="/login" className="nav-link" style={{ textDecoration: 'none' }}>
+                    <Link to="/login" className="nav-link text-light" style={{ textDecoration: 'none' }}>
                       Login
                     </Link>
                   </li>
 
                   <li className="nav-item">
-                    <Link to="/register" className="nav-link" style={{ textDecoration: 'none' }}>
+                    <Link to="/register" className="nav-link text-light" style={{ textDecoration: 'none' }}>
                       Register
                     </Link>
                   </li>

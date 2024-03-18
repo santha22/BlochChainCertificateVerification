@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/auth';
 import { toast } from 'react-toastify';
-import logo1 from "../Images/blockchain.jpeg";
+import logo1 from "../Images/blockwallpaper.png";
+import { Link } from 'react-router-dom';
+
 
 const URL = "http://localhost:5000/api/auth/login";
-
 const Login = () => {
   const [user, setUser] = useState({
     email: "",
@@ -15,7 +16,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const {storeTokenInLS} = useAuth();
+  const { storeTokenInLS } = useAuth();
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -48,7 +49,7 @@ const Login = () => {
         toast.success("Login Successful");
         storeTokenInLS(res_data.token);
         // localStorage.setItem("token", res_data.token);
-        setUser({ email: "", password: ""});
+        setUser({ email: "", password: "" });
         navigate("/");
       }
 
@@ -57,68 +58,76 @@ const Login = () => {
         console.log("Invalid Credential");
       }
 
-      
+
     } catch (error) {
       console.log(error);
     }
   }
 
   return (
-    <div className='container d-flex justify-content-center align-items-center' style={{background: 'ececec'}}>
-      <div className='row border rounder-5 p-3 bg-white shadow box-area' style={{width: '930px'}}>
+    <div className='container d-flex justify-content-center align-items-center'>
+      <div className='row border rounder-5 p-3 bg-white shadow box-area' style={{ width: '930px' }}>
         {/* left box */}
-        <div className='col-md-6 rounded-4 d-flex justify-content-center align-itmes-center my-5'>
-          <form className="my-5 border p-4" onSubmit={handleSubmit}>
-
-          <h1 className="h3 mb-3 text-center font-weight-normal">Please Login</h1>
-            <div className='form-group'>
-              <label htmlFor='email'>Email</label>
-              <input
-                type='email'
-                name='email'
-                placeholder='Email'
-                className='form-control'
-                id='email'
-                required
-                autoComplete='off'
-                value={user.email}
-                onChange={handleInput}
-              />
-            </div>
-
-            <div className='form-group my-3'>
-              <label htmlFor='password'>Password</label>
-              <input
-                type='password'
-                name='password'
-                placeholder='Password'
-                className='form-control'
-                id='password'
-                required
-                autoComplete='off'
-                value={user.password}
-                onChange={handleInput}
-              />
-            </div>
-
-            <div className='my-3 text-center'>
-              <button type='submit' className='btn btn-primary mx-auto'>
-                Login
-              </button>
-            </div>
-          </form>
+        {/* #0066ff */}
+        <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style={{ background: "#1b2837" }}> 
+          <div className="featured-image mb-3">
+            <img src={logo1} className='img-fluid rounded-4' style={{ width: "350px" }} alt="logo" />
+          </div>
+          <p className='text-white fs-2' style={{ fontFamily: 'monospace' }}>Be Verified</p>
         </div>
 
         {/* right box */}
-        <div className="col-md-6  left-box">
-          <div className="featured-image">
-          <img src={logo1} className='img-fluid' style={{width: "250px"}} alt="logo" />
+        <div className='col-md-6 my-5 right-box'>
+          <div className='row align-items-center'>
+            <div className="header-text mb-4">
+              <h1>Please Login</h1>
+            </div>
+            {/* Add onSubmit event to the form element */}
+            <form onSubmit={handleSubmit}>
+              <div className='form-group'>
+                <input
+                  type='email'
+                  name='email'
+                  placeholder='Email'
+                  className='form-control form-control-md bg-light fs-6'
+                  id='email'
+                  required
+                  autoComplete='off'
+                  value={user.email}
+                  onChange={handleInput}
+                />
+              </div>
+              <div className='form-group my-2'>
+
+                <input
+                  type='password'
+                  name='password'
+                  placeholder='Password'
+                  className='form-control form-control-lg bg-light fs-6'
+                  id='password'
+                  required
+                  autoComplete='off'
+                  value={user.password}
+                  onChange={handleInput}
+                />
+              </div>
+
+              <div className='my-3 text-center' >
+                <button type='submit' className='btn btn-primary mx-auto' style={{width: '100%'}}>
+                  Login
+                </button>
+              </div>
+            </form>
+            <div className="row">
+              <small>Don't have an account? <Link to="/register">Register</Link></small>
+            </div>
           </div>
-          <p>Be Verified</p>
         </div>
+
+
       </div>
 
-    </div>
+    </div >
   )
 }
 

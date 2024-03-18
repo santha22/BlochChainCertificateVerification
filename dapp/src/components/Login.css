@@ -1,5 +1,8 @@
-.container {
-    background: linear-gradient(to right, #4b6cb7, #182848); /* Adjust color values as needed */
-    height: 100vh; /* Set the height to cover the entire viewport */
-  }
-  
+/* .container {
+    background: linear-gradient(to right, #4b6cb7, #182848); Adjust color values as needed
+    height: "100vh"; 
+   */
+
+.right-box {
+  padding: 40px 30px 40px 40px;
+}

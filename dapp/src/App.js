@@ -9,12 +9,18 @@ import Register from './components/Register';
 import Logout from './components/Logout';
 import Certificate from './components/Certificate';
 import CertificateGenerator from './components/CertificateGenerator';
+import logo2 from './Images/wallpaper.png';
 
 function App() {
-
+    const myStyle = {
+      backgroundImage: `url(${logo2})`,
+      height: "100vh",
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat"
+  };
   
     return (
-      <div>
+      <div style={myStyle}>
         <Router>
         <NavBar />
         <div className='container my-3'>
