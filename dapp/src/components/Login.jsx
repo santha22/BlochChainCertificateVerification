@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../store/auth';
 import { toast } from 'react-toastify';
-
+import logo1 from "../Images/blockchain.jpeg";
 
 const URL = "http://localhost:5000/api/auth/login";
 
@@ -64,9 +64,10 @@ const Login = () => {
   }
 
   return (
-    <div className='container'>
-      <div className='row justify-content-center'>
-        <div className='col-md-4 my-5'>
+    <div className='container d-flex justify-content-center align-items-center' style={{background: 'ececec'}}>
+      <div className='row border rounder-5 p-3 bg-white shadow box-area' style={{width: '930px'}}>
+        {/* left box */}
+        <div className='col-md-6 rounded-4 d-flex justify-content-center align-itmes-center my-5'>
           <form className="my-5 border p-4" onSubmit={handleSubmit}>
 
           <h1 className="h3 mb-3 text-center font-weight-normal">Please Login</h1>
@@ -107,7 +108,16 @@ const Login = () => {
             </div>
           </form>
         </div>
+
+        {/* right box */}
+        <div className="col-md-6  left-box">
+          <div className="featured-image">
+          <img src={logo1} className='img-fluid' style={{width: "250px"}} alt="logo" />
+          </div>
+          <p>Be Verified</p>
+        </div>
       </div>
+
     </div>
   )
 }
