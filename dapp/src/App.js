@@ -23,8 +23,10 @@ function App() {
       <div style={myStyle}>
         <Router>
         <NavBar />
-        <div className='container my-3'>
-        
+        <div className='container rounder-5 d-flex justify-content-center align-items-center flex-column' style={{height: '89vh'}}>
+          {/* <Homepage /> */}
+          {/* <h1 className="text-white pt-5">Welcome to E-Certify</h1>
+          <p className="text-white">Secure your certificates</p> */}
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/certificate" element={<GenerateForm />} />

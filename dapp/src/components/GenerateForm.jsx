@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import CertificateGenerator from "./CertificateGenerator";
 import { useAuth } from "../store/auth";
 import Certificate from "./Certificate";
+// import { sha256Hash } from "./main";
+
+// const { calculateSHA256Hash } = require('./sha256');
+// import { generateKeyPair, signWithPrivateKey } from "./elliptic";
 
 
 const URL = "http://localhost:5000/api/auth/certificate";
@@ -20,6 +24,8 @@ function GenerateForm(props) {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  // const [signature, setSignature] = useState("");
+  // const [sha256Hash, setSha256Hash] = useState("");
  
   const handleChange = (e) => {
       const name = e.target.name;
@@ -45,9 +51,22 @@ function GenerateForm(props) {
         body: JSON.stringify(certificate),
       });
 
-      console.log("certificate details ", response);
+      console.log("certificate details ", certificate);
       if (response.ok) {
         setCertificate(certificate);
+        // const certificateData = `${certificate.firstname}, ${certificate.lastname}, ${certificate.orgName}, ${certificate.courseName}, ${certificate.assignDate}, ${certificate.duration}, ${certificate.email}`;
+
+        // // Calculate SHA256 hash
+        // const hash = calculateSHA256Hash(certificateData);
+        // setSha256Hash(hash);
+
+        // // Generate key pair
+        // const keyPair = generateKeyPair();
+
+        // // Sign the SHA256 hash with the private key
+        // const sig = signWithPrivateKey(keyPair.getPrivate('hex'), hash);
+        // setSignature(sig);
+
         setSubmitted(true);
       }
     } catch (error) {
@@ -59,15 +78,19 @@ function GenerateForm(props) {
     return (
       <>
         {submitted ? (
-          <Certificate certificate={certificate} />
+          <Certificate 
+            certificate={certificate} 
+            // signature={signature}
+            // sha256Hash={sha256Hash}  
+          />
 
         ) : (
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-md-6">
-              <form className="my-5 border p-4" onSubmit={handleSubmit} autoComplete="off">
+              <form className="my-5 border  rounded-4 p-4" onSubmit={handleSubmit} autoComplete="off">
 
-                  <h1>Certificate Details</h1>
+                  <h1 className="text-white">Certificate Details</h1>
 
                   <div className="row mb-3">
                     <div className="col">

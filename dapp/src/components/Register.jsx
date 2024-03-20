@@ -70,21 +70,21 @@ const Register = () => {
 
   return (
       <div className='container d-flex justify-content-center align-items-center'>
-        <div className='row border rounder-5 p-3 bg-white shadow box-area' style={{ width: '930px' }}>
+        <div className='row border rounded-4 p-3 shadow box-area' style={{ width: '930px', background: '#10151d' }}>
           {/* left box  */}
 
           <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style={{ background: "#1b2837" }}>
             <div className="featured-image mb-3">
               <img src={logo1} className='img-fluid rounded-4 my-3' style={{ width: "350px" }} alt="logo" />
             </div>
-            <p className='text-white fs-2' style={{ fontFamily: 'monospace' }}>Be Verified</p>
+            {/* <p className='text-white fs-2' style={{ fontFamily: 'monospace' }}>Be Verified</p> */}
           </div>
 
           {/* right box  */}
           <div className="col-md-6 my-5 right box">
             <div className="row align-items-center">
               <div className="header-text mb-4">
-                <h1>Please Sign in</h1>
+                <h1 className='text-white'>Please Sign in</h1>
 
               </div>
 

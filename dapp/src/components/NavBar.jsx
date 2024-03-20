@@ -15,10 +15,10 @@ const NavBar = () => {
     return (
 
       <div>
-        <nav className="navbar navbar-expand-lg">
+        <nav className="navbar bg-gradient navbar-expand-lg">
           <div className="container-fluid">
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <FontAwesomeIcon icon={faHouse} size="lg" style={{ cursor: "pointer" }} />
+              <FontAwesomeIcon icon={faHouse} size="lg" style={{ cursor: "pointer", color: "#ffffff" }} />
             </Link>
 
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
