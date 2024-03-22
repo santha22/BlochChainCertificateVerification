@@ -10,6 +10,7 @@ import Logout from './components/Logout';
 import Certificate from './components/Certificate';
 import CertificateGenerator from './components/CertificateGenerator';
 import logo2 from './Images/wallpaper.png';
+import Verify from './components/Verify';
 
 function App() {
     const myStyle = {
@@ -35,6 +36,7 @@ function App() {
             <Route path='/logout' element={<Logout />} />
             <Route path="/certificate-generated" element={<CertificateGenerator />} />
             <Route path="/generate-certificate" element={<Certificate />} /> 
+            <Route path="/verify" element={<Verify />} />
           </Routes>
 
         </div>

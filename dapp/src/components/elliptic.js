@@ -19,29 +19,8 @@ function verifyWithPublicKey(publicKey, sha256Hash, signature) {
     return key.verify(sha256Hash, signature);
 }
 
-module.exports = { generateKeyPair, signWithPrivateKey, verifyWithPublicKey };
+function getPublicKey(keyPair) {
+  return keyPair.getPublic('hex');
+}
 
-// const { ec } = require('elliptic');
-
-// // Create an elliptic curve object using the secp256k1 curve (used in Bitcoin)
-// const curve = new ec('secp256k1');
-
-// // Function to generate a key pair (public key and private key)
-// function generateKeyPair() {
-//   const keyPair = curve.genKeyPair();
-//   return {
-//     publicKey: keyPair.getPublic('hex'),
-//     privateKey: keyPair.getPrivate().toString(16) // Convert the private key to hexadecimal string
-//   };
-// }
-
-
-// // Function to sign a message using the private key
-// function signWithPrivateKey(privateKeyHex, message) {
-//   const key = curve.keyFromPrivate(privateKeyHex, 'hex');
-//   const signature = key.sign(message);
-//   return signature.toDER('hex');
-// }
-
-// module.exports = { generateKeyPair, signWithPrivateKey };
-
+module.exports = { generateKeyPair, signWithPrivateKey, verifyWithPublicKey, getPublicKey };
