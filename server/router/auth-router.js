@@ -10,6 +10,6 @@ router.route("/").get(authcontrollers.home);
 router.route("/register").post(validate(signupSchema), authcontrollers.register);
 router.route("/login").post(validate(loginSchema), authcontrollers.login);
 router.route("/certificate").post(authcontrollers.certificate);
-// router.route("/signature/:id").get(authcontrollers.getSignatureById);
+router.route("/signature/:shaId").post(authcontrollers.getSignatureById);
 
 module.exports = router;

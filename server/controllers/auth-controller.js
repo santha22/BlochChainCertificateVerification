@@ -110,8 +110,8 @@ const certificate = async (req, res) => {
 
 const getSignatureById = async (req, res) => {
     try {
-        const { id } = req.params;
-        const certificate = await Certificate.findOne({ id });
+        const { shaId } = req.params;
+        const certificate = await Certificate.findOne({ sha256Hash:shaId });
         if (!certificate) {
             return res.status(404).json({ message: "Certificate not found" });
         }
@@ -122,4 +122,4 @@ const getSignatureById = async (req, res) => {
 }
 
 
-module.exports = {home, register, login, certificate};
+module.exports = {home, register, login, certificate,getSignatureById};
