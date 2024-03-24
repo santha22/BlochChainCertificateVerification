@@ -1,6 +1,8 @@
 const User = require("../models/user-model");
 const Certificate = require("../models/certificate-model");
 const bcrypt = require("bcryptjs");
+const { calculateSHA256Hash } = require('../sha256');
+const { generateKeyPair, signWithPrivateKey } = require('../elliptic');
 
 const home = async (req, res) => {
     try {
@@ -22,10 +24,7 @@ const register = async (req, res) => {
             return res.status(400).json({ message: "Email already exists"});
         }
         
-        // hash password
-        // const slatRound = 10;
-        // const hash_password = await bcrypt.hash(password, slatRound);
-        
+    
         const userCreated = await User.create({orgName, email, password});
 
         res.status(201).send({
@@ -75,14 +74,52 @@ const login = async (req, res) => {
 const certificate = async (req, res) => {
     try {
         const response = req.body;
-        await Certificate.create(response);
-        return res.status(200).json({message: "certificate send successfully"});
+
+        // Calculate SHA256 hash
+        const sha256Hash = calculateSHA256Hash(JSON.stringify(response));
+
+        // Generate key pair
+        const keyPair = generateKeyPair();
+
+        // Sign the SHA256 hash with the private key
+        const signature = signWithPrivateKey(keyPair.getPrivate('hex'), sha256Hash);
+
+        // Convert signature object to string
+        const signatureString = JSON.stringify(signature);
+
+        await Certificate.create({
+            firstname: response.firstname,
+            lastname: response.lastname,
+            orgName: response.orgName,
+            courseName: response.courseName,
+            assignDate: response.assignDate,
+            duration: response.duration,
+            email: response.email,
+            signature: signatureString,   // Store signature as string
+            sha256Hash: sha256Hash
+        });
+        return res.status(200).json({message: "Certificate data stored successfully",sha256Hash});
 
         
     } catch (error) {
-        return res.status(500).json({message: "certificate not send"});
+        console.error("Error storing certificate data:", error);
+        return res.status(500).json({message: "Failed to store certificate data"});
         
     }
 }
+
+const getSignatureById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const certificate = await Certificate.findOne({ id });
+        if (!certificate) {
+            return res.status(404).json({ message: "Certificate not found" });
+        }
+        return res.status(200).json({ signature: certificate.signature });
+    } catch (error) {
+        return res.status(500).json({ message: "Failed to retrieve signature" });
+    }
+}
+
 
 module.exports = {home, register, login, certificate};

@@ -16,6 +16,7 @@ function GenerateForm(props) {
     assignDate: "",
     duration: "",
     email: "",
+    sha256Hash: "",
 
   });
 
@@ -32,30 +33,59 @@ function GenerateForm(props) {
       
     };
 
-  
+  console.log("CERTIGICARTEs",certificate);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(URL, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(certificate),
-      });
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch(URL, {
+  //       method: 'POST',
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(certificate),
+  //     });
 
-      console.log("certificate details ", certificate);
-      if (response.ok) {
-        setCertificate(certificate);
-
-        setSubmitted(true);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setCertificate({...certificate, sha256Hash: data.sha256Hash}); // Update sha256Hash state with response value
+        
+  //       setSubmitted(true);
+  //       console.log("certificate details ", certificate);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
     
-  }
+  // }
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await fetch(URL, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(certificate),
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          console.log("DATA",data);
+          setCertificate(prevCertificate => ({
+            ...prevCertificate,
+            sha256Hash: data.sha256Hash
+          })); // Update certificate state
+          setSubmitted(true);
+
+        }
+        console.log("certificate", certificate);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  
 
     return (
       <>
