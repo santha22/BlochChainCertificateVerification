@@ -48,10 +48,17 @@ const NavBar = () => {
                   </li> 
 
                   <li className="nav-item">
+                    <Link to="/verify" className="nav-link text-light" style={{ textDecoration: 'none'}}>
+                      Verify
+                    </Link>
+                  </li>
+
+                  <li className="nav-item">
                     <Link to="/certificate" className="nav-link text-light" style={{ textDecoration: 'none' }}>
                       Generate
                     </Link>
                   </li>
+                  
                 </ul>
 
 

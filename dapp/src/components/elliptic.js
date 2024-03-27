@@ -14,9 +14,34 @@ function signWithPrivateKey(privateKey, sha256Hash) {
     return signature.toDER('hex');
   }
 
+// function verifyWithPublicKey(publicKey, sha256Hash, signature) {
+//     const key = ec.keyFromPublic(publicKey, 'hex');
+//     return key.verify(sha256Hash, signature);
+// }
+
 function verifyWithPublicKey(publicKey, sha256Hash, signature) {
-    const key = ec.keyFromPublic(publicKey, 'hex');
-    return key.verify(sha256Hash, signature);
+  try {
+      // Parse the signature string into an object
+      const parsedSignature = JSON.parse(signature);
+        
+      // Extract 'r' and 's' from the parsed signature
+      const { r, s } = parsedSignature;
+
+      console.log(r,s, parsedSignature);
+      // Ensure both 'r' and 's' components are present
+      if (!r || !s) {
+          throw new Error('Invalid signature: Signature must have both "r" and "s" components');
+      }
+
+      // Create a public key object from the provided hex string
+      const pubKey = ec.keyFromPublic(publicKey, 'hex');
+
+      // Verify the signature using the public key
+      return pubKey.verify(sha256Hash, { r, s });
+  } catch (error) {
+      console.error('Error verifying signature:', error);
+      return false; // Return false if there's any error during verification
+  }
 }
 
 function getPublicKey(keyPair) {

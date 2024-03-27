@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { calculateSHA256Hash } from './sha256';
-import { verifyWithPublicKey, generateKeyPair, getPublicKey } from './elliptic';
+import { generateKeyPair, verifyWithPublicKey, getPublicKey } from './elliptic';
 
 const Verify = () => {
 
@@ -22,7 +21,19 @@ const Verify = () => {
                 const { signature } = await response.json();
                 console.log("SIGNATURE",signature);
                 setSignature(signature);
-                setVerificationResult(true);
+
+                // Generate key pair
+                const keyPair = generateKeyPair();
+
+                // Perform signature verification
+                const publicKey = getPublicKey(keyPair); // Get the public key of the certificate issuer
+                console.log("Public Key:", publicKey);
+                const isSignatureValid = verifyWithPublicKey(publicKey, sha256Hash, signature);
+                console.log("Is Signature Valid:", isSignatureValid);
+                
+                // Update verification result state
+                setVerificationResult(isSignatureValid);
+
             } else {
                 setVerificationResult(false);
                 setSignature(null);

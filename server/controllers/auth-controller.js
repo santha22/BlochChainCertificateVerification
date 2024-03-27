@@ -121,5 +121,29 @@ const getSignatureById = async (req, res) => {
     }
 }
 
+// const getSignatureById = async (req, res) => {
+//     try {
+//         const { shaId } = req.params;
+//         const certificate = await Certificate.findOne({ sha256Hash: shaId });
+//         if (!certificate) {
+//             return res.status(404).json({ message: "Certificate not found" });
+//         }
+
+//         // Retrieve the public key of the certificate issuer
+//         const publicKey = await getPublicKeyOfIssuer(certificate.orgName); // Modify this based on how you store and retrieve public keys
+
+//         // Verify the signature using the retrieved public key
+//         const isSignatureValid = verifyWithPublicKey(publicKey, certificate.sha256Hash, certificate.signature);
+
+//         if (isSignatureValid) {
+//             return res.status(200).json({ message: "Signature verified successfully" });
+//         } else {
+//             return res.status(401).json({ message: "Signature verification failed" });
+//         }
+//     } catch (error) {
+//         return res.status(500).json({ message: "Failed to retrieve signature or verify" });
+//     }
+// }
+
 
 module.exports = {home, register, login, certificate,getSignatureById};
