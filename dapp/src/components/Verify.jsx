@@ -5,7 +5,8 @@ const Verify = () => {
 
     const [sha256Hash, setSha256Hash] = useState('');
     const [verificationResult, setVerificationResult] = useState(null);
-    const [signature, setSignature] = useState(null);
+    // const [signature, setSignature] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     // d2820a7023577d2c9fe7c7877f3eebce813854aada0ff5b906e5926385b6fafd
 
@@ -18,26 +19,36 @@ const Verify = () => {
             });
 
             if (response.ok) {
-                const { signature } = await response.json();
-                console.log("SIGNATURE",signature);
-                setSignature(signature);
-
-                // Generate key pair
-                const keyPair = generateKeyPair();
-
-                // Perform signature verification
-                const publicKey = getPublicKey(keyPair); // Get the public key of the certificate issuer
-                console.log("Public Key:", publicKey);
-                const isSignatureValid = verifyWithPublicKey(publicKey, sha256Hash, signature);
-                console.log("Is Signature Valid:", isSignatureValid);
-                
-                // Update verification result state
-                setVerificationResult(isSignatureValid);
-
+                const { message } = await response.json();
+                setVerificationResult(true);
+                setErrorMessage('');
             } else {
                 setVerificationResult(false);
-                setSignature(null);
+                const { message } = await response.json();
+                setErrorMessage(message);
             }
+
+            // if (response.ok) {
+            //     const { signature } = await response.json();
+            //     console.log("SIGNATURE",signature);
+            //     setSignature(signature);
+
+            //     // Generate key pair
+            //     const keyPair = generateKeyPair();
+
+            //     // Perform signature verification
+            //     const publicKey = getPublicKey(keyPair); // Get the public key of the certificate issuer
+            //     console.log("Public Key:", publicKey);
+            //     const isSignatureValid = verifyWithPublicKey(publicKey, sha256Hash, signature);
+            //     console.log("Is Signature Valid:", isSignatureValid);
+
+            //     // Update verification result state
+            //     setVerificationResult(isSignatureValid);
+
+            // } else {
+            //     setVerificationResult(false);
+            //     setSignature(null);
+            // }
 
             // const { signature } = await response.json();
 
@@ -58,6 +69,7 @@ const Verify = () => {
             // setVerificationResult(isSignatureValid);
         } catch (error) {
             console.error('Error:', error);
+            setErrorMessage('Failed to verify certificate');
             // Handle error (e.g., display an error message)
         }
     }
@@ -118,7 +130,7 @@ const Verify = () => {
                     {verificationResult ? (
                         <>
                             <h2 className="text-warning">Verification successful: The certificate is authentic.</h2>
-                            {signature && <p className="text-white">Signature: {signature}</p>}
+                            {/* {signature && <p className="text-white">Signature: {signature}</p>} */}
                         </>
                     ) : (
                         <h2 className="text-danger">Verification failed: The certificate may be tampered with or is not authentic.</h2>

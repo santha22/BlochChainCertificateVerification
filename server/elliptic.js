@@ -65,6 +65,13 @@ const getPublicKey = (keyPair) => {
     return keyPair.getPublic('hex');
 };
 
+// Function to sign data with the private key
+const signWithPrivateKey = (privateKey, data) => {
+    const key = curve.keyFromPrivate(privateKey, 'hex');
+    const signature = key.sign(data);
+    return signature.toDER('hex');
+};
+
 // Function to verify signature with the public key
 const verifyWithPublicKey = (publicKey, sha256Hash, signature) => {
     // Create a public key object from the provided hex string
@@ -74,4 +81,4 @@ const verifyWithPublicKey = (publicKey, sha256Hash, signature) => {
     return pubKey.verify(sha256Hash, signature);
 };
 
-module.exports = { generateKeyPair, getPublicKey, verifyWithPublicKey };
+module.exports = { generateKeyPair, getPublicKey, signWithPrivateKey,verifyWithPublicKey };

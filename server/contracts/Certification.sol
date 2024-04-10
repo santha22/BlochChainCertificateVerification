@@ -43,3 +43,21 @@ contract Certification {
         return (temp.candidate_name, temp.org_name, temp.course_name, temp.expiration_date);
     }
 }
+
+contract CertificateStore{
+
+    mapping (uint256 id => address authPerson) public owners;
+    uint256 public ownerCount;
+
+    function recoverSignerFromSignature(uint8 v, bytes32 r, bytes32 s, bytes32 hash) external returns (address) {
+        address signer = ecrecover(hash, v, r, s);
+        require(signer != address(0), "ECDSA: invalid signature");
+        return signer;
+    }
+    function registerOwner(address owner) public returns(uint256){
+        require(owner != address(0), "Owner invalid");
+        ownerCount++;
+        owners[ownerCount] = owner;
+        return ownerCount;
+    }
+}

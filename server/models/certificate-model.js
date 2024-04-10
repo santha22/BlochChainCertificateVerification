@@ -44,6 +44,10 @@ const certificateSchema = new Schema({
         type: String,
         required: true,
     },
+    publicKey: {
+        type: String, // Assuming publicKey is a string
+        required: true,
+    },
 });
 
 // create a model or  a collection
